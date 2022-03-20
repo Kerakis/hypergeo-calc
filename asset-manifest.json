@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/hypergeo-calc/static/css/main.ededda72.css",
+    "main.js": "/hypergeo-calc/static/js/main.4d318f72.js",
+    "index.html": "/hypergeo-calc/index.html",
+    "main.ededda72.css.map": "/hypergeo-calc/static/css/main.ededda72.css.map",
+    "main.4d318f72.js.map": "/hypergeo-calc/static/js/main.4d318f72.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ededda72.css",
+    "static/js/main.4d318f72.js"
+  ]
+}
