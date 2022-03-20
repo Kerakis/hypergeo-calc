@@ -61,7 +61,7 @@ export default function App() {
     // ucdf(N, M, n, x);
     // whiff(N, M, n);
     // mean(N, M, n);
-    resultsRef.current.style.display = 'flex';
+    resultsRef.current.style.visibility = 'visible';
   };
 
   let exactCards = 100 * +pmf(N, M, n, x).toFixed(3) + '%';
@@ -71,14 +71,14 @@ export default function App() {
   let meanCards = +mean(N, M, n, x);
 
   return (
-    <div className='flex flex-col h-screen align-center justify-center'>
+    <div className='flex flex-col lg:h-screen mt-5 lg:mt-0 align-center justify-center'>
       <div className='flex flex-col max-w-4xl mx-auto'>
-        <div className='mb-8 mx-auto flex flex-col items-center bg-gray-700 container border-solid border border-gray-100'>
+        <div className='mb-8 mx-auto flex flex-col items-center bg-gray-700 container border-solid border border-gray-100 shadow-xl'>
           <h1 className='text-3xl py-4'>
             Hypergeometric Distribution Calculator
           </h1>
         </div>
-        <div className='mb-4 mx-auto flex flex-col items-center bg-gray-700 container border-solid border border-gray-100'>
+        <div className='mb-4 mx-auto flex flex-col items-center bg-gray-700 container border-solid border border-gray-100 shadow-xl'>
           <h3 className='p-4 text-justify'>
             This hypergeometric distribution calculator can help you determine
             the probabilities of you drawing a specific card or cards from a
@@ -87,7 +87,7 @@ export default function App() {
             library of 100 cards which contains 40 land cards.
           </h3>
         </div>
-        <div className='m-auto flex flex-col bg-gray-700 container border-solid border border-gray-100'>
+        <div className='mb-4 m-auto flex flex-col bg-gray-700 container border-solid border border-gray-100 shadow-xl'>
           <form
             className='grid grid-rows-5 grid-cols-1 p-4'
             onSubmit={handleSubmit}
@@ -95,7 +95,7 @@ export default function App() {
             <div>
               <label>Total number of cards in your library:</label>
             </div>
-            <div className='justify-self-end'>
+            <div className='justify-self-start'>
               <input
                 className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded border-gray-100 px-2 mx-2'
                 type='text'
@@ -145,40 +145,43 @@ export default function App() {
               />
             </div>
           </form>
-          <div ref={resultsRef} className='hidden'>
-            <div className='p-4 grid grid-cols-2 grid-rows-4 gap-1'>
-              <div className=''>
-                <p>Chance to draw exactly {x} of the desired card: </p>
-              </div>
-              <div className='font-bold'>{exactCards}</div>
-              <div>
-                <p>Chance to draw {x} or less of the desired card: </p>
-              </div>
-              <div className='font-bold'>{cardsOrLess}</div>
-              <div>
-                <p>Chance to draw {x} or more of the desired card: </p>
-              </div>
-              <div className='font-bold'>{cardsOrMore}</div>
-              <div>
-                <p>Chance to draw none of the desired card: </p>
-              </div>
+        </div>
+        <div
+          ref={resultsRef}
+          className='invisible m-auto flex flex-col bg-gray-700 container border-solid border border-gray-100 shadow-xl'
+        >
+          <div className='p-4 grid grid-cols-2 grid-rows-4 gap-1'>
+            <div className=''>
+              <p>Chance to draw exactly {x} of the desired card: </p>
+            </div>
+            <div className='font-bold'>{exactCards}</div>
+            <div>
+              <p>Chance to draw {x} or less of the desired card: </p>
+            </div>
+            <div className='font-bold'>{cardsOrLess}</div>
+            <div>
+              <p>Chance to draw {x} or more of the desired card: </p>
+            </div>
+            <div className='font-bold'>{cardsOrMore}</div>
+            <div>
+              <p>Chance to draw none of the desired card: </p>
+            </div>
 
-              <div className='font-bold'>{noCards}</div>
-              <div className='col-span-2'>
-                <p>
-                  On average, you can expect to draw{' '}
-                  <span className='font-bold'>{meanCards}</span> of the desired
-                  card(s) when you draw <span className='font-bold'>{n}</span>{' '}
-                  card(s) from a <span className='font-bold'>{N}</span>-card
-                  library containing <span className='font-bold'>{M}</span> of
-                  the desired card(s).
-                </p>
-              </div>
+            <div className='font-bold'>{noCards}</div>
+            <div className='col-span-2'>
+              <p>
+                On average, you can expect to draw{' '}
+                <span className='font-bold'>{meanCards}</span> of the desired
+                card(s) when you draw <span className='font-bold'>{n}</span>{' '}
+                card(s) from a <span className='font-bold'>{N}</span>-card
+                library containing <span className='font-bold'>{M}</span> of the
+                desired card(s).
+              </p>
             </div>
           </div>
         </div>
       </div>
-      <footer className='fixed right-0 bottom-0 m-1'>
+      <footer className='mx-auto lg:fixed lg:right-0 lg:bottom-0 m-1'>
         <p>
           Made with &#10084; by
           <a
