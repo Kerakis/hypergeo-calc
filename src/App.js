@@ -6,8 +6,8 @@ export default function App() {
   const resultsRef = useRef(null);
   const { value: N, bind: bindN } = useInput('100');
   const { value: n, bind: bindn } = useInput('7');
-  const { value: M, bind: bindm } = useInput('40');
-  const { value: x, bind: bindk } = useInput('2');
+  const { value: M, bind: bindM } = useInput('40');
+  const { value: x, bind: bindx } = useInput('2');
 
   const choose = (n, x) => {
     let r = 1;
@@ -54,27 +54,28 @@ export default function App() {
     return r.toFixed(0);
   };
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-    // pmf(N, M, n, x);
-    // lcdf(N, M, n, x);
-    // ucdf(N, M, n, x);
-    // whiff(N, M, n);
-    // mean(N, M, n);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    pmf(N, M, n, x);
+    lcdf(N, M, n, x);
+    ucdf(N, M, n, x);
+    whiff(N, M, n);
+    mean(N, M, n);
     resultsRef.current.style.visibility = 'visible';
   };
 
-  let exactCards = 100 * +pmf(N, M, n, x).toFixed(3) + '%';
-  let cardsOrLess = +lcdf(N, M, n, x).toFixed(3) + '%';
-  let cardsOrMore = +ucdf(N, M, n, x).toFixed(3) + '%';
-  let noCards = +whiff(N, M, n, x).toFixed(3) + '%';
-  let meanCards = +mean(N, M, n, x);
+  const exactCards = +pmf(N, M, n, x) * 100;
+  const exactCardsFixed = exactCards.toFixed(2) + '%';
+  const cardsOrLess = +lcdf(N, M, n, x).toFixed(2) + '%';
+  const cardsOrMore = +ucdf(N, M, n, x).toFixed(2) + '%';
+  const noCards = +whiff(N, M, n, x).toFixed(2) + '%';
+  const meanCards = +mean(N, M, n, x);
 
   return (
-    <div className='flex flex-col lg:h-screen mt-5 lg:mt-0 align-center justify-center'>
-      <div className='flex flex-col max-w-4xl mx-auto'>
-        <div className='mb-8 mx-auto flex flex-col items-center bg-gray-700 container border-solid border border-gray-100 shadow-xl'>
-          <h1 className='text-3xl py-4'>
+    <div className='flex flex-col md:h-screen mt-8 md:mt-0 align-center justify-center'>
+      <div className='flex flex-col text-sm md:text-base max-w-4xl mx-auto container'>
+        <div className='mb-8 mx-auto flex flex-col bg-gray-700 container border-solid border border-gray-100 shadow-xl'>
+          <h1 className='md:text-3xl text-xl py-4 text-center'>
             Hypergeometric Distribution Calculator
           </h1>
         </div>
@@ -87,59 +88,67 @@ export default function App() {
             library of 100 cards which contains 40 land cards.
           </h3>
         </div>
-        <div className='mb-4 m-auto flex flex-col bg-gray-700 container border-solid border border-gray-100 shadow-xl'>
+        <div className='mb-4 m-auto bg-gray-700 container border-solid border border-gray-100 shadow-xl'>
           <form
-            className='grid grid-rows-5 grid-cols-1 p-4'
+            className='grid grid-cols-4 gap-y-2 p-4 md:justify-items-start'
             onSubmit={handleSubmit}
           >
-            <div>
+            <div className='col-span-3'>
               <label>Total number of cards in your library:</label>
             </div>
-            <div className='justify-self-start'>
+            <div className='justify-self-end md:justify-self-end self-center'>
               <input
-                className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded border-gray-100 px-2 mx-2'
-                type='text'
+                className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32'
+                type='number'
+                min='1'
+                max='100'
                 {...bindN}
               />
             </div>
-            <div>
+            <div className='col-span-3'>
               <label>Number of cards to draw during the draw event:</label>
             </div>
-            <div className='justify-self-end'>
+            <div className='justify-self-end self-center'>
               <input
-                className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded border-gray-100 px-2 mx-2'
-                type='text'
+                className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32'
+                type='number'
+                min='1'
+                max='100'
                 {...bindn}
               />
             </div>
-            <div>
+            <div className='col-span-3'>
               <label>
                 Total number of desired cards that are in your library:
               </label>
             </div>
-            <div className='justify-self-end pb-2'>
+            <div className='justify-self-end md:justify-self-end self-center'>
               <input
-                className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded border-gray-100 px-2 mx-2'
-                type='text'
-                {...bindm}
+                className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32'
+                type='number'
+                min='1'
+                max='100'
+                {...bindM}
               />
             </div>
-            <div>
+            <div className='col-span-3'>
               <label>
                 Number of desired cards that you hope to draw during the draw
                 event:
               </label>
             </div>
-            <div className='justify-self-end'>
+            <div className='justify-self-end md:justify-self-end self-center'>
               <input
-                className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded border-gray-100 px-2 mx-2'
-                type='text'
-                {...bindk}
+                className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32'
+                type='number'
+                min='1'
+                max='100'
+                {...bindx}
               />
             </div>
-            <div className='self-center mx-auto col-span-2 pt-2'>
+            <div className='mx-auto col-span-4 mt-4'>
               <input
-                className='text-base bg-gray-800 hover:bg-slate-500 transition-colors border border-solid rounded border-gray-100 w-56'
+                className='bg-gray-800 hover:bg-slate-500 transition-colors border border-solid rounded border-gray-100 w-56'
                 type='submit'
                 value='Calculate Probabilities'
               />
@@ -150,25 +159,33 @@ export default function App() {
           ref={resultsRef}
           className='invisible m-auto flex flex-col bg-gray-700 container border-solid border border-gray-100 shadow-xl'
         >
-          <div className='p-4 grid grid-cols-2 grid-rows-4 gap-1'>
-            <div className=''>
+          <div className='grid grid-cols-4 gap-y-2 p-4 md:justify-items-start'>
+            <div className='col-span-3'>
               <p>Chance to draw exactly {x} of the desired card: </p>
             </div>
-            <div className='font-bold'>{exactCards}</div>
-            <div>
+            <div className='justify-self-end md:justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 font-bold overflow-hidden'>
+              {exactCardsFixed}
+            </div>
+            <div className='col-span-3'>
               <p>Chance to draw {x} or less of the desired card: </p>
             </div>
-            <div className='font-bold'>{cardsOrLess}</div>
-            <div>
+            <div className='justify-self-end md:justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 font-bold'>
+              {cardsOrLess}
+            </div>
+            <div className='col-span-3'>
               <p>Chance to draw {x} or more of the desired card: </p>
             </div>
-            <div className='font-bold'>{cardsOrMore}</div>
-            <div>
+            <div className='justify-self-end md:justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 font-bold'>
+              {cardsOrMore}
+            </div>
+            <div className='col-span-3'>
               <p>Chance to draw none of the desired card: </p>
             </div>
 
-            <div className='font-bold'>{noCards}</div>
-            <div className='col-span-2'>
+            <div className='justify-self-end md:justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 font-bold'>
+              {noCards}
+            </div>
+            <div className='col-span-4 text-justify'>
               <p>
                 On average, you can expect to draw{' '}
                 <span className='font-bold'>{meanCards}</span> of the desired
@@ -181,7 +198,7 @@ export default function App() {
           </div>
         </div>
       </div>
-      <footer className='mx-auto lg:fixed lg:right-0 lg:bottom-0 m-1'>
+      <footer className='mx-auto md:fixed md:right-0 md:bottom-0 m-1'>
         <p>
           Made with &#10084; by
           <a
