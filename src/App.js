@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useInput } from './hooks/input-hook';
 import './index.css';
 
@@ -8,6 +8,11 @@ export default function App() {
   const { value: n, bind: bindn } = useInput('7');
   const { value: M, bind: bindM } = useInput('40');
   const { value: x, bind: bindx } = useInput('2');
+  const [exactCards, setExactCards] = useState(0);
+  const [cardsOrLess, setCardsOrLess] = useState(0);
+  const [cardsOrMore, setCardsOrMore] = useState(0);
+  const [noCards, setNoCards] = useState(0);
+  const [meanCards, setMeanCards] = useState(0);
 
   const choose = (n, x) => {
     let r = 1;
@@ -56,20 +61,13 @@ export default function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    pmf(N, M, n, x);
-    lcdf(N, M, n, x);
-    ucdf(N, M, n, x);
-    whiff(N, M, n);
-    mean(N, M, n);
+    setExactCards((+pmf(N, M, n, x) * 100).toFixed(2));
+    setCardsOrLess(+lcdf(N, M, n, x).toFixed(2));
+    setCardsOrMore(+ucdf(N, M, n, x).toFixed(2));
+    setNoCards(+whiff(N, M, n, x).toFixed(2));
+    setMeanCards(+mean(N, M, n, x));
     resultsRef.current.style.visibility = 'visible';
   };
-
-  const exactCards = +pmf(N, M, n, x) * 100;
-  const exactCardsFixed = exactCards.toFixed(2) + '%';
-  const cardsOrLess = +lcdf(N, M, n, x).toFixed(2) + '%';
-  const cardsOrMore = +ucdf(N, M, n, x).toFixed(2) + '%';
-  const noCards = +whiff(N, M, n, x).toFixed(2) + '%';
-  const meanCards = +mean(N, M, n, x);
 
   return (
     <div className='flex flex-col md:h-screen mt-8 md:mt-0 align-center justify-center'>
@@ -101,7 +99,7 @@ export default function App() {
                 className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32'
                 type='number'
                 min='1'
-                max='100'
+                max='1000'
                 {...bindN}
               />
             </div>
@@ -113,7 +111,7 @@ export default function App() {
                 className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32'
                 type='number'
                 min='1'
-                max='100'
+                max={N}
                 {...bindn}
               />
             </div>
@@ -126,8 +124,8 @@ export default function App() {
               <input
                 className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32'
                 type='number'
-                min='1'
-                max='100'
+                min='0'
+                max={N}
                 {...bindM}
               />
             </div>
@@ -142,7 +140,7 @@ export default function App() {
                 className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32'
                 type='number'
                 min='1'
-                max='100'
+                max={n}
                 {...bindx}
               />
             </div>
@@ -164,26 +162,26 @@ export default function App() {
               <p>Chance to draw exactly {x} of the desired card: </p>
             </div>
             <div className='justify-self-end md:justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 font-bold overflow-hidden'>
-              {exactCardsFixed}
+              {exactCards}%
             </div>
             <div className='col-span-3'>
               <p>Chance to draw {x} or less of the desired card: </p>
             </div>
             <div className='justify-self-end md:justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 font-bold'>
-              {cardsOrLess}
+              {cardsOrLess}%
             </div>
             <div className='col-span-3'>
               <p>Chance to draw {x} or more of the desired card: </p>
             </div>
             <div className='justify-self-end md:justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 font-bold'>
-              {cardsOrMore}
+              {cardsOrMore}%
             </div>
             <div className='col-span-3'>
               <p>Chance to draw none of the desired card: </p>
             </div>
 
             <div className='justify-self-end md:justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 font-bold'>
-              {noCards}
+              {noCards}%
             </div>
             <div className='col-span-4 text-justify'>
               <p>
