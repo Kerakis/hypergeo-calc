@@ -13,6 +13,10 @@ export default function App() {
   const [cardsOrMore, setCardsOrMore] = useState(0);
   const [noCards, setNoCards] = useState(0);
   const [meanCards, setMeanCards] = useState(0);
+  const [currentLibrary, setCurrentLibrary] = useState(0);
+  const [currentDraw, setCurrentDraw] = useState(0);
+  const [currentSuccessSize, setCurrentSuccessSize] = useState(0);
+  const [currentSuccesses, setCurrentSuccesses] = useState(0);
 
   const choose = (n, x) => {
     let r = 1;
@@ -66,6 +70,10 @@ export default function App() {
     setCardsOrMore(+ucdf(N, M, n, x).toFixed(2));
     setNoCards(+whiff(N, M, n, x).toFixed(2));
     setMeanCards(+mean(N, M, n, x));
+    setCurrentLibrary(N);
+    setCurrentDraw(n);
+    setCurrentSuccessSize(M);
+    setCurrentSuccesses(x);
     resultsRef.current.style.visibility = 'visible';
   };
 
@@ -159,37 +167,44 @@ export default function App() {
         >
           <div className='grid grid-cols-4 gap-y-2 p-4 md:justify-items-start'>
             <div className='col-span-3'>
-              <p>Chance to draw exactly {x} of the desired card: </p>
+              <p>
+                Chance to draw exactly {currentSuccesses} of the desired card:{' '}
+              </p>
             </div>
-            <div className='justify-self-end md:justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 font-bold overflow-hidden'>
+            <div className='justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 font-bold overflow-hidden'>
               {exactCards}%
             </div>
             <div className='col-span-3'>
-              <p>Chance to draw {x} or less of the desired card: </p>
+              <p>
+                Chance to draw {currentSuccesses} or less of the desired card:{' '}
+              </p>
             </div>
-            <div className='justify-self-end md:justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 font-bold'>
+            <div className='justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 font-bold'>
               {cardsOrLess}%
             </div>
             <div className='col-span-3'>
-              <p>Chance to draw {x} or more of the desired card: </p>
+              <p>
+                Chance to draw {currentSuccesses} or more of the desired card:
+              </p>
             </div>
-            <div className='justify-self-end md:justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 font-bold'>
+            <div className='justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 font-bold'>
               {cardsOrMore}%
             </div>
             <div className='col-span-3'>
-              <p>Chance to draw none of the desired card: </p>
+              <p>Chance to draw none of the desired card:</p>
             </div>
-
-            <div className='justify-self-end md:justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 font-bold'>
+            <div className='justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 font-bold'>
               {noCards}%
             </div>
             <div className='col-span-4 text-justify'>
               <p>
                 On average, you can expect to draw{' '}
                 <span className='font-bold'>{meanCards}</span> of the desired
-                card(s) when you draw <span className='font-bold'>{n}</span>{' '}
-                card(s) from a <span className='font-bold'>{N}</span>-card
-                library containing <span className='font-bold'>{M}</span> of the
+                card(s) when you draw{' '}
+                <span className='font-bold'>{currentDraw}</span> card(s) from a{' '}
+                <span className='font-bold'>{currentLibrary}</span>-card library
+                containing{' '}
+                <span className='font-bold'>{currentSuccessSize}</span> of the
                 desired card(s).
               </p>
             </div>
