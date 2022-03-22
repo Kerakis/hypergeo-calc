@@ -162,7 +162,7 @@ export default function App() {
                 className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32'
                 type='number'
                 min='1'
-                // max={N}
+                max='1000'
                 {...bindn}
               />
             </div>
@@ -176,7 +176,7 @@ export default function App() {
                 className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32'
                 type='number'
                 min='0'
-                // max={N}
+                max='1000'
                 {...bindM}
               />
             </div>
@@ -191,7 +191,7 @@ export default function App() {
                 className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32'
                 type='number'
                 min='1'
-                // max={n}
+                max='1000'
                 {...bindx}
               />
             </div>
