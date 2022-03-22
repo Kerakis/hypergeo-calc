@@ -4,6 +4,9 @@ import './index.css';
 
 export default function App() {
   const resultsRef = useRef(null);
+  const successesOverDrawRef = useRef(null);
+  const drawOverLibraryRef = useRef(null);
+  const successSizeOverLibraryRef = useRef(null);
   const { value: N, bind: bindN } = useInput('100');
   const { value: n, bind: bindn } = useInput('7');
   const { value: M, bind: bindM } = useInput('40');
@@ -79,6 +82,15 @@ export default function App() {
     setCurrentSuccessSize(numM);
     setCurrentSuccesses(numx);
     resultsRef.current.style.visibility = 'visible';
+    numx > numn
+      ? (successesOverDrawRef.current.style.borderColor = 'red')
+      : (successesOverDrawRef.current.style.borderColor = 'white');
+    numn > numN
+      ? (drawOverLibraryRef.current.style.borderColor = 'red')
+      : (drawOverLibraryRef.current.style.borderColor = 'white');
+    numM > numN
+      ? (successSizeOverLibraryRef.current.style.borderColor = 'red')
+      : (successSizeOverLibraryRef.current.style.borderColor = 'white');
   };
 
   const isError =
@@ -159,6 +171,7 @@ export default function App() {
             </div>
             <div className='justify-self-end self-center'>
               <input
+                ref={drawOverLibraryRef}
                 className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32'
                 type='number'
                 min='1'
@@ -173,6 +186,7 @@ export default function App() {
             </div>
             <div className='justify-self-end md:justify-self-end self-center'>
               <input
+                ref={successSizeOverLibraryRef}
                 className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32'
                 type='number'
                 min='0'
@@ -188,6 +202,7 @@ export default function App() {
             </div>
             <div className='justify-self-end md:justify-self-end self-center'>
               <input
+                ref={successesOverDrawRef}
                 className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32'
                 type='number'
                 min='1'
