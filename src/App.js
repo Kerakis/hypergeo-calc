@@ -65,16 +65,59 @@ export default function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setExactCards((+pmf(N, M, n, x) * 100).toFixed(2));
-    setCardsOrLess(+lcdf(N, M, n, x).toFixed(2));
-    setCardsOrMore(+ucdf(N, M, n, x).toFixed(2));
-    setNoCards(+whiff(N, M, n, x).toFixed(2));
-    setMeanCards(+mean(N, M, n, x));
-    setCurrentLibrary(N);
-    setCurrentDraw(n);
-    setCurrentSuccessSize(M);
-    setCurrentSuccesses(x);
+    const numM = parseFloat(M);
+    const numN = parseFloat(N);
+    const numn = parseFloat(n);
+    const numx = parseFloat(x);
+    setExactCards((+pmf(numN, numM, numn, numx) * 100).toFixed(2));
+    setCardsOrLess(+lcdf(numN, numM, numn, numx).toFixed(2));
+    setCardsOrMore(+ucdf(numN, numM, numn, numx).toFixed(2));
+    setNoCards(+whiff(numN, numM, numn, numx).toFixed(2));
+    setMeanCards(+mean(numN, numM, numn, numx));
+    setCurrentLibrary(numN);
+    setCurrentDraw(numn);
+    setCurrentSuccessSize(numM);
+    setCurrentSuccesses(numx);
     resultsRef.current.style.visibility = 'visible';
+  };
+
+  const isError =
+    currentSuccesses > currentDraw ||
+    currentDraw > currentLibrary ||
+    currentSuccessSize > currentLibrary;
+
+  const getErrorMessage = () => {
+    if (currentSuccesses > currentDraw) {
+      return (
+        <div className='text-red-600 p-4 self-center font-bold text-justify'>
+          <p>
+            The number of desired cards that you're hoping to draw during the
+            draw event can't be greater than the number of cards being drawn
+            during the draw event.
+          </p>
+        </div>
+      );
+    }
+    if (currentDraw > currentLibrary) {
+      return (
+        <div className='text-red-600 p-4 self-center font-bold text-justify'>
+          <p>
+            The number of cards drawn during the draw event can't be greater
+            than the number of cards in your library.
+          </p>
+        </div>
+      );
+    }
+    if (currentSuccessSize > currentLibrary) {
+      return (
+        <div className='text-red-600 p-4 self-center font-bold text-justify'>
+          <p>
+            The total number of desired cards can't be greater than the number
+            of cards in your library.
+          </p>
+        </div>
+      );
+    }
   };
 
   return (
@@ -88,10 +131,10 @@ export default function App() {
         <div className='mb-4 mx-auto flex flex-col items-center bg-gray-700 container border-solid border border-gray-100 shadow-xl'>
           <h3 className='p-4 text-justify'>
             This hypergeometric distribution calculator can help you determine
-            the probabilities of you drawing a specific card or cards from a
-            library of cards. For example, it can help you determine the
-            likelihood of drawing 2 land cards in your opening hand from a
-            library of 100 cards which contains 40 land cards.
+            the probabilities of drawing a specific card or cards from a library
+            of cards. For example, it can help you determine the likelihood of
+            drawing 2 land cards in your opening hand of 7 cards from a 100-card
+            library containing 40 land cards.
           </h3>
         </div>
         <div className='mb-4 m-auto bg-gray-700 container border-solid border border-gray-100 shadow-xl'>
@@ -119,7 +162,7 @@ export default function App() {
                 className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32'
                 type='number'
                 min='1'
-                max={N}
+                // max={N}
                 {...bindn}
               />
             </div>
@@ -133,7 +176,7 @@ export default function App() {
                 className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32'
                 type='number'
                 min='0'
-                max={N}
+                // max={N}
                 {...bindM}
               />
             </div>
@@ -148,7 +191,7 @@ export default function App() {
                 className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32'
                 type='number'
                 min='1'
-                max={n}
+                // max={n}
                 {...bindx}
               />
             </div>
@@ -165,50 +208,54 @@ export default function App() {
           ref={resultsRef}
           className='invisible m-auto flex flex-col bg-gray-700 container border-solid border border-gray-100 shadow-xl'
         >
-          <div className='grid grid-cols-4 gap-y-2 p-4 md:justify-items-start'>
-            <div className='col-span-3'>
-              <p>
-                Chance to draw exactly {currentSuccesses} of the desired card:{' '}
-              </p>
+          {isError && getErrorMessage()}
+
+          {!isError && (
+            <div className='grid grid-cols-4 gap-y-2 p-4 md:justify-items-start'>
+              <div className='col-span-3'>
+                <p>
+                  Chance to draw exactly {currentSuccesses} of the desired card:{' '}
+                </p>
+              </div>
+              <div className='justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 font-bold overflow-hidden'>
+                {exactCards}%
+              </div>
+              <div className='col-span-3'>
+                <p>
+                  Chance to draw {currentSuccesses} or less of the desired card:{' '}
+                </p>
+              </div>
+              <div className='justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 font-bold'>
+                {cardsOrLess}%
+              </div>
+              <div className='col-span-3'>
+                <p>
+                  Chance to draw {currentSuccesses} or more of the desired card:
+                </p>
+              </div>
+              <div className='justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 font-bold'>
+                {cardsOrMore}%
+              </div>
+              <div className='col-span-3'>
+                <p>Chance to draw none of the desired card:</p>
+              </div>
+              <div className='justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 font-bold'>
+                {noCards}%
+              </div>
+              <div className='col-span-4 text-justify'>
+                <p>
+                  On average, you can expect to draw{' '}
+                  <span className='font-bold'>{meanCards}</span> of the desired
+                  card(s) when you draw{' '}
+                  <span className='font-bold'>{currentDraw}</span> card(s) from
+                  a <span className='font-bold'>{currentLibrary}</span>-card
+                  library containing{' '}
+                  <span className='font-bold'>{currentSuccessSize}</span> of the
+                  desired card(s).
+                </p>
+              </div>
             </div>
-            <div className='justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 font-bold overflow-hidden'>
-              {exactCards}%
-            </div>
-            <div className='col-span-3'>
-              <p>
-                Chance to draw {currentSuccesses} or less of the desired card:{' '}
-              </p>
-            </div>
-            <div className='justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 font-bold'>
-              {cardsOrLess}%
-            </div>
-            <div className='col-span-3'>
-              <p>
-                Chance to draw {currentSuccesses} or more of the desired card:
-              </p>
-            </div>
-            <div className='justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 font-bold'>
-              {cardsOrMore}%
-            </div>
-            <div className='col-span-3'>
-              <p>Chance to draw none of the desired card:</p>
-            </div>
-            <div className='justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 font-bold'>
-              {noCards}%
-            </div>
-            <div className='col-span-4 text-justify'>
-              <p>
-                On average, you can expect to draw{' '}
-                <span className='font-bold'>{meanCards}</span> of the desired
-                card(s) when you draw{' '}
-                <span className='font-bold'>{currentDraw}</span> card(s) from a{' '}
-                <span className='font-bold'>{currentLibrary}</span>-card library
-                containing{' '}
-                <span className='font-bold'>{currentSuccessSize}</span> of the
-                desired card(s).
-              </p>
-            </div>
-          </div>
+          )}
         </div>
       </div>
       <footer className='mx-auto md:fixed md:right-0 md:bottom-0 m-1'>
