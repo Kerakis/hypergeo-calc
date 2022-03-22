@@ -83,14 +83,20 @@ export default function App() {
     setCurrentSuccesses(numx);
     resultsRef.current.style.visibility = 'visible';
     numx > numn
-      ? (successesOverDrawRef.current.style.borderColor = 'red')
-      : (successesOverDrawRef.current.style.borderColor = 'white');
+      ? (successesOverDrawRef.current.style.borderColor =
+          'rgb(220 38 38 / var(--tw-border-opacity))')
+      : (successesOverDrawRef.current.style.borderColor =
+          'rgb(243 244 246 / var(--tw-border-opacity))');
     numn > numN
-      ? (drawOverLibraryRef.current.style.borderColor = 'red')
-      : (drawOverLibraryRef.current.style.borderColor = 'white');
+      ? (drawOverLibraryRef.current.style.borderColor =
+          'rgb(220 38 38 / var(--tw-border-opacity))')
+      : (drawOverLibraryRef.current.style.borderColor =
+          'rgb(243 244 246 / var(--tw-border-opacity))');
     numM > numN
-      ? (successSizeOverLibraryRef.current.style.borderColor = 'red')
-      : (successSizeOverLibraryRef.current.style.borderColor = 'white');
+      ? (successSizeOverLibraryRef.current.style.borderColor =
+          'rgb(220 38 38 / var(--tw-border-opacity))')
+      : (successSizeOverLibraryRef.current.style.borderColor =
+          'rgb(243 244 246 / var(--tw-border-opacity))');
   };
 
   const isError =
@@ -161,6 +167,7 @@ export default function App() {
               <input
                 className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32'
                 type='number'
+                required
                 min='1'
                 max='1000'
                 {...bindN}
@@ -174,6 +181,7 @@ export default function App() {
                 ref={drawOverLibraryRef}
                 className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32'
                 type='number'
+                required
                 min='1'
                 max='1000'
                 {...bindn}
@@ -189,6 +197,7 @@ export default function App() {
                 ref={successSizeOverLibraryRef}
                 className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32'
                 type='number'
+                required
                 min='0'
                 max='1000'
                 {...bindM}
@@ -205,6 +214,7 @@ export default function App() {
                 ref={successesOverDrawRef}
                 className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32'
                 type='number'
+                required
                 min='1'
                 max='1000'
                 {...bindx}
