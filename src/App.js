@@ -7,7 +7,7 @@ export default function App() {
   const successesOverDrawRef = useRef(null);
   const drawOverLibraryRef = useRef(null);
   const successSizeOverLibraryRef = useRef(null);
-  const { value: N, bind: bindN } = useInput('100');
+  const { value: N, bind: bindN } = useInput('99');
   const { value: n, bind: bindn } = useInput('7');
   const { value: M, bind: bindM } = useInput('40');
   const { value: x, bind: bindx } = useInput('2');
@@ -140,7 +140,7 @@ export default function App() {
 
   return (
     <div className='flex flex-col md:h-screen mt-8 md:mt-0 align-center justify-center'>
-      <div className='flex flex-col text-sm md:text-base max-w-4xl mx-auto container'>
+      <div className='flex flex-col max-w-4xl mx-auto container'>
         <div className='mb-8 mx-auto flex flex-col bg-gray-700 container border-solid border border-gray-100 shadow-xl'>
           <h1 className='md:text-3xl text-xl py-4 text-center'>
             Hypergeometric Distribution Calculator
@@ -151,7 +151,7 @@ export default function App() {
             This hypergeometric distribution calculator can help you determine
             the probabilities of drawing a specific card or cards from a library
             of cards. For example, it can help you determine the likelihood of
-            drawing 2 land cards in your opening hand of 7 cards from a 100-card
+            drawing 2 land cards in your opening hand of 7 cards from a 99-card
             library containing 40 land cards.
           </h3>
         </div>
@@ -242,7 +242,7 @@ export default function App() {
                   Chance to draw exactly {currentSuccesses} of the desired card:{' '}
                 </p>
               </div>
-              <div className='justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 font-bold overflow-hidden'>
+              <div className='justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 overflow-hidden'>
                 {exactCards}%
               </div>
               <div className='col-span-3'>
@@ -250,7 +250,7 @@ export default function App() {
                   Chance to draw {currentSuccesses} or less of the desired card:{' '}
                 </p>
               </div>
-              <div className='justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 font-bold'>
+              <div className='justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 overflow-hidden'>
                 {cardsOrLess}%
               </div>
               <div className='col-span-3'>
@@ -258,13 +258,13 @@ export default function App() {
                   Chance to draw {currentSuccesses} or more of the desired card:
                 </p>
               </div>
-              <div className='justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 font-bold'>
+              <div className='justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 overflow-hidden'>
                 {cardsOrMore}%
               </div>
               <div className='col-span-3'>
                 <p>Chance to draw none of the desired card:</p>
               </div>
-              <div className='justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 font-bold'>
+              <div className='justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 w-16 md:w-32 overflow-hidden'>
                 {noCards}%
               </div>
               <div className='col-span-4 text-justify'>
@@ -283,9 +283,9 @@ export default function App() {
           )}
         </div>
       </div>
-      <footer className='mx-auto md:fixed md:right-0 md:bottom-0 m-1'>
+      <footer className='mx-auto md:fixed md:right-0 md:bottom-0 m-1 mt-4 text-sm'>
         <p>
-          Made with &#10084; by
+          Made with <span className='font-sans'>&#10084;</span> by
           <a
             href='https://github.com/Kerakis'
             target='_blank'
