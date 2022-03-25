@@ -84,7 +84,9 @@ export default function App() {
     setCurrentSuccessSize(numM);
     setCurrentSuccesses(numx);
     resultsRef.current.style.visibility = 'visible';
-    executeScroll();
+    setTimeout(() => {
+      executeScroll();
+    }, 0);
     numx > numn
       ? (successesOverDrawRef.current.style.borderColor =
           'rgb(220 38 38 / var(--tw-border-opacity))')
