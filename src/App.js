@@ -66,6 +66,8 @@ export default function App() {
     return r.toFixed(0);
   };
 
+  const executeScroll = () => resultsRef.current.scrollIntoView();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const numM = parseFloat(M);
@@ -82,6 +84,7 @@ export default function App() {
     setCurrentSuccessSize(numM);
     setCurrentSuccesses(numx);
     resultsRef.current.style.visibility = 'visible';
+    executeScroll();
     numx > numn
       ? (successesOverDrawRef.current.style.borderColor =
           'rgb(220 38 38 / var(--tw-border-opacity))')
