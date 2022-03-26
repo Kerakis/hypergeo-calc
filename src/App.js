@@ -1,6 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { useInput } from './hooks/input-hook';
 import './index.css';
+import smoothscroll from 'smoothscroll-polyfill';
+smoothscroll.polyfill();
 
 export default function App() {
   const resultsRef = useRef(null);
@@ -66,7 +68,8 @@ export default function App() {
     return r.toFixed(0);
   };
 
-  const executeScroll = () => resultsRef.current.scrollIntoView();
+  const executeScroll = () =>
+    resultsRef.current.scrollIntoView({ behavior: 'smooth' });
 
   const handleSubmit = (e) => {
     e.preventDefault();
