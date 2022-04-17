@@ -5,9 +5,13 @@ import './index.css';
 
 export default function App() {
   const [currentTurn, setCurrentTurn] = useState(0);
+
+  // These values will be pulled from the user's deck
   const { value: N, bind: bindN } = useInput('99'); // The number of cards in the library
   let n = currentTurn + 7; // Use this as type/tag/etc. 7 is added to account for an opening hand of 7 cards.
   const { value: x, bind: bindx } = useInput('1'); // This is left as one to represent the fact that we want to know our chance to draw at least one card of the type/tag
+
+  // These values will be pulled from the user's deck. Current values are just test values.
   const { value: creatures, bind: bindCreatures } = useInput('39');
   const { value: artifacts, bind: bindArtifacts } = useInput('7');
   const { value: enchantments, bind: bindEnchantments } = useInput('11');
@@ -15,8 +19,9 @@ export default function App() {
   const { value: sorceries, bind: bindSorceries } = useInput('7');
   const { value: planeswalkers, bind: bindPlaneswalkers } = useInput('1');
   const { value: lands, bind: bindLands } = useInput('30');
-  const dragonsApproach = 25;
-  const persistentPetitioners = 23;
+
+  const dragonsApproach = 25; // Test numbers
+  const persistentPetitioners = 23; // Test numbers
 
   const creatureOdds = useHypGeo(N, creatures, n, x);
   const artifactOdds = useHypGeo(N, artifacts, n, x);
@@ -26,13 +31,13 @@ export default function App() {
   const landOdds = useHypGeo(N, lands, n, x);
   const planeswalkerOdds = useHypGeo(N, planeswalkers, n, x);
 
-  const dragonsApproachOdds = useHypGeo(N - n, dragonsApproach - 1, 4, x); // One is subtracted since you have to cast the card to get the initial ripple
+  const dragonsApproachOdds = useHypGeo(N - n, dragonsApproach - 1, 4, x); // One is subtracted from dragonsApproach since you have to cast the card to get the initial ripple; n is subtracted from N to approximate library size through turns.
   const persistentPetitionersOdds = useHypGeo(
     N - n,
     persistentPetitioners - 1,
     4,
     x
-  ); // One is subtracted since you have to cast the card to get the initial ripple
+  ); // One is subtracted from persistentPetitioners since you have to cast the card to get the initial ripple; n is subtracted from N to approximate library size through turns.
 
   const nextTurn = () => {
     setCurrentTurn(currentTurn + 1);
@@ -44,15 +49,24 @@ export default function App() {
     }
   };
 
-  const testCards = [
+  const testCards = [`Thrumming Stone`, `A bunch of other crap`];
+
+  const singletonRuleBreakers = [
     `Thrumming Stone`,
     `Dragon's Approach`,
     `Persistent Petitioners`,
+    `Rat Colony`,
+    `Relentless Rats`,
+    `Seven Dwarves`,
+    `Shadowborn Apostle`,
   ];
 
   const hasThrummingStone = testCards.includes(`Thrumming Stone`);
-  const hasDragonsApproach = testCards.includes(`Dragon's Approach`);
-  const hasPersistentPetitioners = testCards.includes(`Persistent Petitioners`);
+  const hasDragonsApproach =
+    singletonRuleBreakers.includes(`Dragon's Approach`);
+  const hasPersistentPetitioners = singletonRuleBreakers.includes(
+    `Persistent Petitioners`
+  );
 
   return (
     <div className='flex flex-col md:h-screen mt-8 md:mt-0 align-center justify-center'>
@@ -260,24 +274,24 @@ export default function App() {
           hasPersistentPetitioners ? (
             <div>
               Thrumming Stone Detected! <br /> Your odds of rippling into a
-              Dragon's Approach is {dragonsApproachOdds}% <br /> Your odds of
-              rippling into a Persistent Petitioners is{' '}
+              Dragon's Approach are {dragonsApproachOdds}% <br /> Your odds of
+              rippling into a Persistent Petitioners are{' '}
               {persistentPetitionersOdds}%.
             </div>
           ) : hasThrummingStone && hasDragonsApproach ? (
             <div>
               Thrumming Stone Detected! <br />
-              Your odds of rippling into a Dragon's Approach is{' '}
+              Your odds of rippling into a Dragon's Approach are{' '}
               {dragonsApproachOdds}%
             </div>
           ) : hasThrummingStone && hasPersistentPetitioners ? (
             <div>
               Thrumming Stone Detected! <br />
-              Your odds of rippling into a Persistent Petitioners is{' '}
+              Your odds of rippling into a Persistent Petitioners are{' '}
               {persistentPetitionersOdds}%
             </div>
           ) : (
-            <div>Test</div>
+            <div></div>
           )}
         </div>
       </div>
