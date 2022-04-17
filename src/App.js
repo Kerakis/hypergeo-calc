@@ -15,6 +15,8 @@ export default function App() {
   const { value: sorceries, bind: bindSorceries } = useInput('7');
   const { value: planeswalkers, bind: bindPlaneswalkers } = useInput('1');
   const { value: lands, bind: bindLands } = useInput('30');
+  const dragonsApproach = 25;
+  const persistentPetitioners = 23;
 
   const creatureOdds = useHypGeo(N, creatures, n, x);
   const artifactOdds = useHypGeo(N, artifacts, n, x);
@@ -23,6 +25,14 @@ export default function App() {
   const sorceryOdds = useHypGeo(N, sorceries, n, x);
   const landOdds = useHypGeo(N, lands, n, x);
   const planeswalkerOdds = useHypGeo(N, planeswalkers, n, x);
+
+  const dragonsApproachOdds = useHypGeo(N - n, dragonsApproach - 1, 4, x); // One is subtracted since you have to cast the card to get the initial ripple
+  const persistentPetitionersOdds = useHypGeo(
+    N - n,
+    persistentPetitioners - 1,
+    4,
+    x
+  ); // One is subtracted since you have to cast the card to get the initial ripple
 
   const nextTurn = () => {
     setCurrentTurn(currentTurn + 1);
@@ -33,6 +43,16 @@ export default function App() {
       setCurrentTurn(currentTurn - 1);
     }
   };
+
+  const testCards = [
+    `Thrumming Stone`,
+    `Dragon's Approach`,
+    `Persistent Petitioners`,
+  ];
+
+  const hasThrummingStone = testCards.includes(`Thrumming Stone`);
+  const hasDragonsApproach = testCards.includes(`Dragon's Approach`);
+  const hasPersistentPetitioners = testCards.includes(`Persistent Petitioners`);
 
   return (
     <div className='flex flex-col md:h-screen mt-8 md:mt-0 align-center justify-center'>
@@ -233,6 +253,32 @@ export default function App() {
               {landOdds}%
             </div>
           </div>
+        </div>
+        <div className='m-auto flex flex-col bg-gray-700 container border-solid border border-gray-100 shadow-xl p-4 mt-4'>
+          {hasThrummingStone &&
+          hasDragonsApproach &&
+          hasPersistentPetitioners ? (
+            <div>
+              Thrumming Stone Detected! <br /> Your odds of rippling into a
+              Dragon's Approach is {dragonsApproachOdds}% <br /> Your odds of
+              rippling into a Persistent Petitioners is{' '}
+              {persistentPetitionersOdds}%.
+            </div>
+          ) : hasThrummingStone && hasDragonsApproach ? (
+            <div>
+              Thrumming Stone Detected! <br />
+              Your odds of rippling into a Dragon's Approach is{' '}
+              {dragonsApproachOdds}%
+            </div>
+          ) : hasThrummingStone && hasPersistentPetitioners ? (
+            <div>
+              Thrumming Stone Detected! <br />
+              Your odds of rippling into a Persistent Petitioners is{' '}
+              {persistentPetitionersOdds}%
+            </div>
+          ) : (
+            <div>Test</div>
+          )}
         </div>
       </div>
       <footer className='mx-auto md:fixed md:right-0 md:bottom-0 m-1 mt-4 text-sm'>
