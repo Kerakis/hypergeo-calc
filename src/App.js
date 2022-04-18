@@ -31,13 +31,14 @@ export default function App() {
   const landOdds = useHypGeo(N, lands, n, x);
   const planeswalkerOdds = useHypGeo(N, planeswalkers, n, x);
 
-  const dragonsApproachOdds = useHypGeo(N - n, dragonsApproach - 1, 4, x); // One is subtracted from dragonsApproach since you have to cast the card to get the initial ripple; n is subtracted from N to approximate library size through turns.
+  // One is subtracted from each Singleton Rule Breaker since you have to cast the card to get the initial ripple; n is subtracted from N to approximate library size through turns.
+  const dragonsApproachOdds = useHypGeo(N - n, dragonsApproach - 1, 4, x);
   const persistentPetitionersOdds = useHypGeo(
     N - n,
     persistentPetitioners - 1,
     4,
     x
-  ); // One is subtracted from persistentPetitioners since you have to cast the card to get the initial ripple; n is subtracted from N to approximate library size through turns.
+  );
 
   const nextTurn = () => {
     setCurrentTurn(currentTurn + 1);
@@ -49,10 +50,13 @@ export default function App() {
     }
   };
 
-  const testCards = [`Thrumming Stone`, `A bunch of other crap`];
+  const deck = [
+    `Thrumming Stone`,
+    `Dragon's Approach`,
+    `Persistent Petitioners`,
+  ];
 
   const singletonRuleBreakers = [
-    `Thrumming Stone`,
     `Dragon's Approach`,
     `Persistent Petitioners`,
     `Rat Colony`,
@@ -61,12 +65,24 @@ export default function App() {
     `Shadowborn Apostle`,
   ];
 
-  const hasThrummingStone = testCards.includes(`Thrumming Stone`);
+  const hasThrummingStone = deck.includes(`Thrumming Stone`);
   const hasDragonsApproach =
     singletonRuleBreakers.includes(`Dragon's Approach`);
   const hasPersistentPetitioners = singletonRuleBreakers.includes(
     `Persistent Petitioners`
   );
+
+  let hasSingletonRuleBreakers = singletonRuleBreakers.filter((f) =>
+    deck.includes(f)
+  );
+
+  const test = () => {
+    if (hasSingletonRuleBreakers.length > 0 && hasThrummingStone) {
+      hasSingletonRuleBreakers.forEach((element) => console.log(element));
+    }
+  };
+
+  test();
 
   return (
     <div className='flex flex-col md:h-screen mt-8 md:mt-0 align-center justify-center'>
