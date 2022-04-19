@@ -20,9 +20,6 @@ export default function App() {
   const { value: planeswalkers, bind: bindPlaneswalkers } = useInput('1');
   const { value: lands, bind: bindLands } = useInput('30');
 
-  const dragonsApproach = 25; // Test numbers
-  const persistentPetitioners = 23; // Test numbers
-
   const creatureOdds = useHypGeo(N, creatures, n, x);
   const artifactOdds = useHypGeo(N, artifacts, n, x);
   const enchantmentOdds = useHypGeo(N, enchantments, n, x);
@@ -31,7 +28,15 @@ export default function App() {
   const landOdds = useHypGeo(N, lands, n, x);
   const planeswalkerOdds = useHypGeo(N, planeswalkers, n, x);
 
-  // One is subtracted from each Singleton Rule Breaker since you have to cast the card to get the initial ripple; n is subtracted from N to approximate library size through turns.
+  // These values will be pulled from the user's deck. Current values are just test values.
+  const dragonsApproach = 25;
+  const persistentPetitioners = 23;
+  const ratColony = 28;
+  const relentlessRats = 27;
+  const sevenDwarves = 7;
+  const shadowbornApostles = 26;
+
+  // One is subtracted from each Singleton Rule Breaker since you have to cast the card to get the initial ripple; n (the amount of cards that have been drawn so far) is subtracted from N (the library size) to approximate library size through turns.
   const dragonsApproachOdds = useHypGeo(N - n, dragonsApproach - 1, 4, x);
   const persistentPetitionersOdds = useHypGeo(
     N - n,
@@ -39,6 +44,10 @@ export default function App() {
     4,
     x
   );
+  const ratColonyOdds = useHypGeo(N - n, ratColony - 1, 4, x);
+  const relentlessRatsOdds = useHypGeo(N - n, relentlessRats - 1, 4, x);
+  const sevenDwarvesOdds = useHypGeo(N - n, sevenDwarves - 1, 4, x);
+  const shadowbornApostleOdds = useHypGeo(N - n, shadowbornApostles - 1, 4, x);
 
   const nextTurn = () => {
     setCurrentTurn(currentTurn + 1);
@@ -50,12 +59,18 @@ export default function App() {
     }
   };
 
+  // Example deck. Real values to be pulled from the user's deck
   const deck = [
     `Thrumming Stone`,
     `Dragon's Approach`,
     `Persistent Petitioners`,
+    `Rat Colony`,
+    `Relentless Rats`,
+    `Seven Dwarves`,
+    `Shadowborn Apostle`,
   ];
 
+  // These are all of the cards that ignore restrictions on the number of a specific card that can be played in a deck
   const singletonRuleBreakers = [
     `Dragon's Approach`,
     `Persistent Petitioners`,
@@ -66,23 +81,17 @@ export default function App() {
   ];
 
   const hasThrummingStone = deck.includes(`Thrumming Stone`);
-  const hasDragonsApproach =
-    singletonRuleBreakers.includes(`Dragon's Approach`);
-  const hasPersistentPetitioners = singletonRuleBreakers.includes(
-    `Persistent Petitioners`
-  );
-
   let hasSingletonRuleBreakers = singletonRuleBreakers.filter((f) =>
     deck.includes(f)
   );
 
-  const test = () => {
-    if (hasSingletonRuleBreakers.length > 0 && hasThrummingStone) {
-      hasSingletonRuleBreakers.forEach((element) => console.log(element));
-    }
-  };
-
-  test();
+  // Needing to have one of these for each singleton rule breaker is clunky
+  const hasDragonsApproach = deck.includes(`Dragon's Approach`);
+  const hasPersistentPetitioners = deck.includes(`Persistent Petitioners`);
+  const hasRatColony = deck.includes(`Rat Colony`);
+  const hasRelentlessRats = deck.includes(`Relentless Rats`);
+  const hasSevenDwarves = deck.includes(`Seven Dwarves`);
+  const hasShadowbornApostles = deck.includes(`Shadowborn Apostle`);
 
   return (
     <div className='flex flex-col md:h-screen mt-8 md:mt-0 align-center justify-center'>
@@ -285,29 +294,42 @@ export default function App() {
           </div>
         </div>
         <div className='m-auto flex flex-col bg-gray-700 container border-solid border border-gray-100 shadow-xl p-4 mt-4'>
-          {hasThrummingStone &&
-          hasDragonsApproach &&
-          hasPersistentPetitioners ? (
+          {hasSingletonRuleBreakers && hasThrummingStone && (
+            <div>Thrumming Stone detected!</div>
+          )}
+          {hasDragonsApproach && hasThrummingStone && (
             <div>
-              Thrumming Stone Detected! <br /> Your odds of rippling into a
-              Dragon's Approach are {dragonsApproachOdds}% <br /> Your odds of
-              rippling into a Persistent Petitioners are{' '}
-              {persistentPetitionersOdds}%.
-            </div>
-          ) : hasThrummingStone && hasDragonsApproach ? (
-            <div>
-              Thrumming Stone Detected! <br />
               Your odds of rippling into a Dragon's Approach are{' '}
               {dragonsApproachOdds}%
             </div>
-          ) : hasThrummingStone && hasPersistentPetitioners ? (
+          )}
+          {hasPersistentPetitioners && hasThrummingStone && (
             <div>
-              Thrumming Stone Detected! <br />
               Your odds of rippling into a Persistent Petitioners are{' '}
               {persistentPetitionersOdds}%
             </div>
-          ) : (
-            <div></div>
+          )}
+          {hasRatColony && hasThrummingStone && (
+            <div>
+              Your odds of rippling into a Rat Colony are {ratColonyOdds}%
+            </div>
+          )}
+          {hasRelentlessRats && hasThrummingStone && (
+            <div>
+              Your odds of rippling into a Relentless Rats are{' '}
+              {relentlessRatsOdds}%
+            </div>
+          )}
+          {hasSevenDwarves && hasThrummingStone && (
+            <div>
+              Your odds of rippling into a Seven Dwarves are {sevenDwarvesOdds}%
+            </div>
+          )}
+          {hasShadowbornApostles && hasThrummingStone && (
+            <div>
+              Your odds of rippling into a Shadowborn Apostle are{' '}
+              {shadowbornApostleOdds}%
+            </div>
           )}
         </div>
       </div>
@@ -317,8 +339,7 @@ export default function App() {
           <a
             href='https://github.com/Kerakis'
             target='_blank'
-            rel='noopener noreferrer'
-          >
+            rel='noopener noreferrer'>
             &nbsp;Kerakis&nbsp;
           </a>
         </p>
