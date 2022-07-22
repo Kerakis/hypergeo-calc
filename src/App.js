@@ -14,6 +14,7 @@ export default function App() {
   const { value: M, bind: bindM } = useInput('40');
   const { value: x, bind: bindx } = useInput('2');
   const [exactCards, setExactCards] = useState(0);
+  const [lessThan, setLessThan] = useState(0);
   const [cardsOrLess, setCardsOrLess] = useState(0);
   const [cardsOrMore, setCardsOrMore] = useState(0);
   const [noCards, setNoCards] = useState(0);
@@ -50,6 +51,14 @@ export default function App() {
     return r * 100;
   };
 
+  const orLess = (N, M, n, x) => {
+    let r = 0;
+    for (let i = 0; i < x; i++) {
+      r = r + pmf(N, M, n, i);
+    }
+    return r * 100;
+  };
+
   const ucdf = (N, M, n, x) => {
     let r = 0;
     for (let i = 0; i < x; i++) {
@@ -79,6 +88,7 @@ export default function App() {
     const numx = parseFloat(x);
     setExactCards((+pmf(numN, numM, numn, numx) * 100).toFixed(2));
     setCardsOrLess(+lcdf(numN, numM, numn, numx).toFixed(2));
+    setLessThan(+orLess(numN, numM, numn, numx).toFixed(2));
     setCardsOrMore(+ucdf(numN, numM, numn, numx).toFixed(2));
     setNoCards(+whiff(numN, numM, numn, numx).toFixed(2));
     setMeanCards(+mean(numN, numM, numn, numx));
@@ -166,8 +176,7 @@ export default function App() {
         <div className='mb-4 m-auto bg-gray-700 container border-solid border border-gray-100 shadow-xl'>
           <form
             className='flex flex-col md:grid md:grid-cols-4 md:gap-y-2 p-4 md:justify-items-start'
-            onSubmit={handleSubmit}
-          >
+            onSubmit={handleSubmit}>
             <div className='col-span-3'>
               <label>Total number of cards in your library:</label>
             </div>
@@ -239,8 +248,7 @@ export default function App() {
         </div>
         <div
           ref={resultsRef}
-          className='invisible m-auto flex flex-col bg-gray-700 container border-solid border border-gray-100 shadow-xl'
-        >
+          className='invisible m-auto flex flex-col bg-gray-700 container border-solid border border-gray-100 shadow-xl'>
           {isError && getErrorMessage()}
 
           {!isError && (
@@ -260,6 +268,15 @@ export default function App() {
               </div>
               <div className='justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 my-1 md:my-0 w-full md:w-32 overflow-hidden'>
                 {cardsOrLess}%
+              </div>
+              <div className='col-span-3'>
+                <p>
+                  Chance to draw less than {currentSuccesses} of the desired
+                  card:{' '}
+                </p>
+              </div>
+              <div className='justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 my-1 md:my-0 w-full md:w-32 overflow-hidden'>
+                {lessThan}%
               </div>
               <div className='col-span-3'>
                 <p>
@@ -297,8 +314,7 @@ export default function App() {
           <a
             href='https://github.com/Kerakis'
             target='_blank'
-            rel='noopener noreferrer'
-          >
+            rel='noopener noreferrer'>
             &nbsp;Kerakis&nbsp;
           </a>
         </p>
