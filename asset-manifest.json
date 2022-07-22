@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/hypergeo-calc/static/css/main.6012a259.css",
-    "main.js": "/hypergeo-calc/static/js/main.78417abb.js",
+    "main.js": "/hypergeo-calc/static/js/main.1254e369.js",
     "index.html": "/hypergeo-calc/index.html",
     "main.6012a259.css.map": "/hypergeo-calc/static/css/main.6012a259.css.map",
-    "main.78417abb.js.map": "/hypergeo-calc/static/js/main.78417abb.js.map"
+    "main.1254e369.js.map": "/hypergeo-calc/static/js/main.1254e369.js.map"
   },
   "entrypoints": [
     "static/css/main.6012a259.css",
-    "static/js/main.78417abb.js"
+    "static/js/main.1254e369.js"
   ]
 }
