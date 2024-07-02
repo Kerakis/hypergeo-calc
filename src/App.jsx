@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useInput } from './hooks/input-hook';
 import './index.css';
 import smoothscroll from 'smoothscroll-polyfill';
@@ -127,9 +127,9 @@ export default function App() {
       return (
         <div className='text-red-600 p-4 self-center font-bold text-justify'>
           <p>
-            The number of desired cards that you're hoping to draw during the
-            draw event can't be greater than the number of cards being drawn
-            during the draw event.
+            The number of desired cards that you&apos;re hoping to draw during
+            the draw event can&apos;t be greater than the number of cards being
+            drawn during the draw event.
           </p>
         </div>
       );
@@ -138,8 +138,8 @@ export default function App() {
       return (
         <div className='text-red-600 p-4 self-center font-bold text-justify'>
           <p>
-            The number of cards drawn during the draw event can't be greater
-            than the number of cards in your library.
+            The number of cards drawn during the draw event can&apos;t be
+            greater than the number of cards in your library.
           </p>
         </div>
       );
@@ -148,8 +148,8 @@ export default function App() {
       return (
         <div className='text-red-600 p-4 self-center font-bold text-justify'>
           <p>
-            The total number of desired cards can't be greater than the number
-            of cards in your library.
+            The total number of desired cards can&apos;t be greater than the
+            number of cards in your library.
           </p>
         </div>
       );

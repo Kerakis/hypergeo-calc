@@ -1,3 +1,8 @@
-# Hypergeometric Distribution Calculator
+# React + Vite
 
-This hypergeometric distribution calculator can help you determine the probabilities of drawing a specific card or cards from a library of cards. For example, it can help you determine the likelihood of drawing 2 land cards in your opening hand of 7 cards from a 100-card library containing 40 land cards.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
