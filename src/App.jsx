@@ -182,7 +182,7 @@ export default function App() {
             </div>
             <div className='justify-self-end self-center md:w-auto w-full'>
               <input
-                className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded border-gray-100 text-center md:text-left px-2 my-1 md:my-0 md:mx-2 w-full md:w-32'
+                className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded-sm border-gray-100 text-center md:text-left px-2 my-1 md:my-0 md:mx-2 w-full md:w-32'
                 type='number'
                 required
                 min='1'
@@ -196,7 +196,7 @@ export default function App() {
             <div className='justify-self-end self-center md:w-auto w-full'>
               <input
                 ref={drawOverLibraryRef}
-                className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded border-gray-100 text-center md:text-left px-2 my-1 md:my-0 md:mx-2 w-full md:w-32'
+                className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded-sm border-gray-100 text-center md:text-left px-2 my-1 md:my-0 md:mx-2 w-full md:w-32'
                 type='number'
                 required
                 min='1'
@@ -212,7 +212,7 @@ export default function App() {
             <div className='justify-self-end self-center md:w-auto w-full'>
               <input
                 ref={successSizeOverLibraryRef}
-                className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded border-gray-100 text-center md:text-left px-2 my-1 md:my-0 md:mx-2 w-full md:w-32'
+                className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded-sm border-gray-100 text-center md:text-left px-2 my-1 md:my-0 md:mx-2 w-full md:w-32'
                 type='number'
                 required
                 min='0'
@@ -229,7 +229,7 @@ export default function App() {
             <div className='justify-self-end self-center md:w-auto w-full'>
               <input
                 ref={successesOverDrawRef}
-                className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded border-gray-100 text-center md:text-left px-2 my-1 md:my-0 md:mx-2 w-full md:w-32'
+                className='bg-gray-800 focus:bg-slate-500 transition-colors border border-solid rounded-sm border-gray-100 text-center md:text-left px-2 my-1 md:my-0 md:mx-2 w-full md:w-32'
                 type='number'
                 required
                 min='1'
@@ -239,7 +239,7 @@ export default function App() {
             </div>
             <div className='mx-auto col-span-4 mt-4 md:mt-2'>
               <input
-                className='bg-gray-800 hover:bg-slate-500 transition-colors border border-solid rounded border-gray-100 w-56'
+                className='bg-gray-800 hover:bg-slate-500 transition-colors border border-solid rounded-sm border-gray-100 w-56'
                 type='submit'
                 value='Calculate Probabilities'
               />
@@ -258,7 +258,7 @@ export default function App() {
                   Chance to draw exactly {currentSuccesses} of the desired card:{' '}
                 </p>
               </div>
-              <div className='justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 my-1 md:my-0 w-full md:w-32 overflow-hidden'>
+              <div className='justify-self-end self-center bg-gray-800 border border-solid rounded-sm border-gray-100 text-center md:text-left px-2 mx-2 my-1 md:my-0 w-full md:w-32 overflow-hidden'>
                 {exactCards}%
               </div>
               <div className='col-span-3'>
@@ -266,7 +266,7 @@ export default function App() {
                   Chance to draw {currentSuccesses} or less of the desired card:{' '}
                 </p>
               </div>
-              <div className='justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 my-1 md:my-0 w-full md:w-32 overflow-hidden'>
+              <div className='justify-self-end self-center bg-gray-800 border border-solid rounded-sm border-gray-100 text-center md:text-left px-2 mx-2 my-1 md:my-0 w-full md:w-32 overflow-hidden'>
                 {cardsOrLess}%
               </div>
               <div className='col-span-3'>
@@ -275,7 +275,7 @@ export default function App() {
                   card:{' '}
                 </p>
               </div>
-              <div className='justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 my-1 md:my-0 w-full md:w-32 overflow-hidden'>
+              <div className='justify-self-end self-center bg-gray-800 border border-solid rounded-sm border-gray-100 text-center md:text-left px-2 mx-2 my-1 md:my-0 w-full md:w-32 overflow-hidden'>
                 {lessThan}%
               </div>
               <div className='col-span-3'>
@@ -283,13 +283,13 @@ export default function App() {
                   Chance to draw {currentSuccesses} or more of the desired card:
                 </p>
               </div>
-              <div className='justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 my-1 md:my-0 w-full md:w-32 overflow-hidden'>
+              <div className='justify-self-end self-center bg-gray-800 border border-solid rounded-sm border-gray-100 text-center md:text-left px-2 mx-2 my-1 md:my-0 w-full md:w-32 overflow-hidden'>
                 {cardsOrMore}%
               </div>
               <div className='col-span-3'>
                 <p>Chance to draw none of the desired card:</p>
               </div>
-              <div className='justify-self-end self-center bg-gray-800 border border-solid rounded border-gray-100 text-center md:text-left px-2 mx-2 my-1 md:my-0 w-full md:w-32 overflow-hidden'>
+              <div className='justify-self-end self-center bg-gray-800 border border-solid rounded-sm border-gray-100 text-center md:text-left px-2 mx-2 my-1 md:my-0 w-full md:w-32 overflow-hidden'>
                 {noCards}%
               </div>
               <div className='col-span-4 text-justify'>
