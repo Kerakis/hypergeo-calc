@@ -255,7 +255,8 @@ export default function App() {
             <div className='flex flex-col md:grid md:grid-cols-4 md:gap-y-2 p-4 md:justify-items-start'>
               <div className='col-span-3'>
                 <p>
-                  Chance to draw exactly {currentSuccesses} of the desired card:{' '}
+                  Chance to draw exactly {currentSuccesses} of the desired
+                  card:{' '}
                 </p>
               </div>
               <div className='justify-self-end self-center bg-gray-800 border border-solid rounded-sm border-gray-100 text-center md:text-left px-2 mx-2 my-1 md:my-0 w-full md:w-32 overflow-hidden'>
@@ -263,7 +264,8 @@ export default function App() {
               </div>
               <div className='col-span-3'>
                 <p>
-                  Chance to draw {currentSuccesses} or less of the desired card:{' '}
+                  Chance to draw {currentSuccesses} or less of the desired
+                  card:{' '}
                 </p>
               </div>
               <div className='justify-self-end self-center bg-gray-800 border border-solid rounded-sm border-gray-100 text-center md:text-left px-2 mx-2 my-1 md:my-0 w-full md:w-32 overflow-hidden'>
@@ -312,7 +314,7 @@ export default function App() {
         <p>
           Made with <span className='font-sans'>&#10084;</span> by
           <a
-            href='https://github.com/Kerakis'
+            href='https://www.kerakis.com/'
             target='_blank'
             rel='noopener noreferrer'>
             &nbsp;Kerakis&nbsp;
